@@ -8,7 +8,17 @@ User enumeration of MS users using Teams API. The python script simply performs 
 	GET https://teams.microsoft.com/api/mt/emea/beta/users/ADDRESS/externalsearchv3
 
 The request requires authentication so a MS Bearer token needs to be provided.
-	
+
+##  Howto
+
+	python3 Teamsapienum.py -u userlistmails.txt -a "Bearer eyJ0ZZZZZZZZZZZZZZZZ"
+	-u Userlist in email format
+	-a Bearer token including Bearer XXXXXX
+
+Can modify code to run through Burp Proxy. Works best if used in conjunction with IP Rotate.
+##  Screenshot
+![](https://raw.githubusercontent.com/InitRoot/TeamsAPIEnum/main/image.png)
+
 ## Full Request 
 The below is the full request sent and can be used to enumerate users.
 	
@@ -21,6 +31,7 @@ The below is the full request sent and can be used to enumerate users.
 	Authorization: XXXXXXXXXXXXXXXXXXXX
 	x-ms-client-version: 27/1.0.0.2020111144
 	Content-type: application/json; charset=UTF-8
+
 
 
 
