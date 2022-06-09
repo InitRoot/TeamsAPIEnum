@@ -67,18 +67,45 @@ def main(users,authtok):
 				continue
 			elif ('Forbidden') in str(response1.content):
 				print(OKGREEN + user + " --POTENTIAL VALID NO PERMISSIONS" + ENDC)
-			elif (response1.status_code == 200) and (len(response1.content)> 10):				
+			elif (response1.status_code == 401):
+				print(FAIL + "Bearer token not valid!" + ENDC)
+			elif (response1.status_code == 200) and (len(response1.content)> 10):		
 				json_data = json.loads(response1.text)
 				json_data = json_data[0]
-				accEnabled = str(json_data["accountEnabled"])
-				usrPrinc =  str(json_data["userPrincipalName"])
-				givName =  str(json_data["givenName"])
-				dspName =  str(json_data["displayName"])
-				tpy =  str(json_data["type"])
-				usrMail =  str(json_data["email"])
+				accEnabled = parseData(0,json_data)
+				usrPrinc =  parseData(1,json_data)
+				givName =  parseData(2,json_data)
+				dspName =  parseData(3,json_data)
+				tpy =  parseData(4,json_data)
+				usrMail =  parseData(5,json_data)
 				print(OKGREEN + accEnabled+ " , " + usrPrinc + " , " + givName + " , " + dspName + " , " + tpy + " , " + usrMail + ENDC) 
 			else:
 				print(WARNING + user + " --INVALID" + ENDC)
+
+
+
+def parseData(agrument, data):
+	try:
+			if agrument == 0:
+				return str(data["accountEnabled"])
+			elif agrument ==  1:
+				return str(data["userPrincipalName"])
+			elif agrument ==  2:
+				return str(data["givenName"])
+			elif agrument ==  3:
+				return str(data["displayName"])
+			elif agrument ==  4:
+				return str(data["type"])
+			elif agrument ==  5:
+				return str(data["email"])
+
+	except:
+		return "." 
+
+
+
+
+
 
 
 if __name__ in ('__main__', 'main'):
